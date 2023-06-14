@@ -1,36 +1,32 @@
 import Cards from "./components/Cards";
-import { Container } from "react-bootstrap";
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Filter from './components/Filter';
 import React, { useState, useEffect } from "react";
-import CityForm from "./components/CityForm";
+
 
 function CardsContainer() {
 
-    const [properties, setProperties] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [priceCategory, setPriceCategory] = useState("All");
-    const [typeCategory, setTypeCategory] = useState("All");
-    const [operationCategory, setOperationCategory] = useState("All");
-    
+  const [properties, setProperties] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [priceCategory, setPriceCategory] = useState("All");
+  const [typeCategory, setTypeCategory] = useState("All");
+  const [operationCategory, setOperationCategory] = useState("All");
 
-    const onPriceCategoryChange = (value) => {
-        setPriceCategory(value);
-      };
-    
-      const onTypeCategoryChange = (value) => {
-        setTypeCategory(value);
-      };
+  const handlePriceChange = (value) => {
+    setPriceCategory(value);
+  };
 
-      const onOperationCategoryChange = (value) => {
-        setOperationCategory(value);
-      };
-  
- 
+  const handleTypeChange = (value) => {
+    setTypeCategory(value);
+  };
 
- // Filter the property list based on the selected price category, type category, and operation category
- const filteredProperties = properties.filter((property) => {
+  const handleOperationChange = (value) => {
+    setOperationCategory(value);
+  };
+
+
+
+  // Filter the property list based on the selected price category, type category, and operation category
+  const filteredProperties = properties.filter((property) => {
     if (
       (priceCategory === "All" || property.listing_price < parseInt(priceCategory)) &&
       (typeCategory === "All" || property.property_type === typeCategory) &&
@@ -40,64 +36,44 @@ function CardsContainer() {
     }
     return false;
   });
-    console.log(filteredProperties.length);
+  console.log(filteredProperties.length);
+  useEffect(() => {
+    fetch("https://phase2-db.onrender.com/properties")
+      .then((response) => response.json())
+      .then((data) => {
+        setProperties(data);
+        setIsLoaded(true);
+      });
+  }, []);
+
+  if (!isLoaded) return  <h4>Loading...Because this App is using a free web service, there will
+                            be a delay in the response to the first request after a period of inactivity
+                            while the instance spins up</h4>
 
 
 
-    
-
-
-    useEffect(() => {
-        fetch("https://phase2-db.onrender.com/properties")
-            .then((response) => response.json())
-            .then((data) => {
-                setProperties(data);
-                setIsLoaded(true);
-            });
-    }, []);
-
-    if (!isLoaded) return <h3>Loading...</h3>;
-
-
-    
-
-        
-
-
-   
-
-    let propertyCards = properties.map((property) => {
-        return (
-
-            <div className="col">
-                <Cards key={property.property_id} address={property.address} city={property.city} state={property.state} zip_code={property.zip_code} listing_price={property.listing_price} bedrooms={property.bedrooms} bathrooms={property.bathrooms} square_feet={property.square_feet} listing_date={property.listing_date} image={property.image} property_type={property.property_type} operation_type={property.operation_type} Property_details={property.Property_details} likes={property.likes} amenities={property.amenities} />
-                </div>
-        )
-    })
+  let propertyCards = properties.map((property) => {
     return (
-        <div className="container" >
-          
-          <CityForm/>
-                 <Filter
-        priceCategory={priceCategory}
-        onPriceCategoryChange={onPriceCategoryChange}
-        typeCategory={typeCategory}
-        onTypeCategoryChange={onTypeCategoryChange}
-        operationCategory={operationCategory}
-        onOperationCategoryChange={onOperationCategoryChange}
-
-
-        filteredProperties ={filteredProperties}
-
-        
-      />
-            <div className="row gy-5 ">
-                {propertyCards}
-
-                </div>
-            </div>
-
+      <div className="col">
+        <Cards key={property.property_id} address={property.address} city={property.city} state={property.state} zip_code={property.zip_code} listing_price={property.listing_price} bedrooms={property.bedrooms} bathrooms={property.bathrooms} square_feet={property.square_feet} listing_date={property.listing_date} image={property.image} property_type={property.property_type} operation_type={property.operation_type} Property_details={property.Property_details} likes={property.likes} amenities={property.amenities} />
+      </div>
     )
+  })
+  return (
+    <div className="container" >
+      <Filter
+        priceCategory={priceCategory}
+        onPriceCategoryChange={handlePriceChange}
+        typeCategory={typeCategory}
+        onTypeCategoryChange={handleTypeChange}
+        operationCategory={operationCategory}
+        onOperationCategoryChange={handleOperationChange}
+        filteredProperties={filteredProperties}
+      />
+      <div className="row gy-5 ">
+        {propertyCards}
+      </div>
+    </div>
+  )
 }
-
 export default CardsContainer;

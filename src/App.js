@@ -1,11 +1,13 @@
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import NavigationBar from './components/NavigationBar';
 import CardsContainer from './CardsContainer';
-import './App.css';
-import React, { useState, useEffect } from "react";
-import Header from './components/Header';
+import './index.css';
+
+
 import Footer from './components/Footer';
-import Filter from './components/Filter';
+
 
 
 
@@ -13,13 +15,19 @@ function App() {
 
   return (
 
-    <div className="container">
-      <NavigationBar />
-  
-      <CardsContainer />
-      <Footer/>
+    <Container fluid>
+      <Row>
+        <Col>
 
-      </div>
+        <div className="container fluid">
+          <NavigationBar />
+          <CardsContainer />
+          <Footer />
+        </div>
+
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

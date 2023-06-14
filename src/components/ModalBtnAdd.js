@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import AgentForm from './AgentForm';
+import AddForm from './AddForm';
 
-function ModalBtn() {
+function ModalBtnAdd() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -12,15 +12,15 @@ function ModalBtn() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Edit Values
+        Add a new property
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header >
-          <Modal.Title>Modify the property filling out this form</Modal.Title>
+          <Modal.Title>Add a new property</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <AgentForm/>
+            <AddForm/>
                     </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -33,4 +33,4 @@ function ModalBtn() {
   );
 }
 
-export default ModalBtn;
+export default ModalBtnAdd;
