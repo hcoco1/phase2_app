@@ -46,9 +46,9 @@ function CardsContainer() {
       });
   }, []);
 
-  if (!isLoaded) return  <h4>Loading...Because this App is using a free web service, there will
+  if (!isLoaded) return  <h6>Loading...Because this App is using a free web service as a database, there will
                             be a delay in the response to the first request after a period of inactivity
-                            while the instance spins up</h4>
+                            while the instance spins up.</h6>
 
 
 

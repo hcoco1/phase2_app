@@ -12,7 +12,7 @@ function ModalBtn() {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Edit Values
+        Edit Property
       </Button>
 
       <Modal show={show} onHide={handleClose}>

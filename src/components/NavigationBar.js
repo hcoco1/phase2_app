@@ -21,7 +21,7 @@ export default function App() {
               loading='lazy'
             />
           </MDBNavbarBrand>
-         
+          <h2>Properties for Sale in USA</h2>
           <ModalBtnAdd />
         </MDBContainer>
       </MDBNavbar>

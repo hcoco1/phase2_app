@@ -12,7 +12,7 @@ function Filter({
 
     return (
         <>
-            <h2>Homes for Sale in USA</h2>
+          
             <div className="Filter">
                 <form className="form-inline">
                     <label className="mr-sm-2" htmlFor="inlineFormCustomSelect">Price</label>
